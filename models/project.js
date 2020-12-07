@@ -1,42 +1,31 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-        "Projects",
+        "Project",
         {
-            idx: {
-                type: DataTypes.INTEGER,
-                primaryKey: true
-            },
-            img: {
-                type: DataTypes.TEXT
-            },
-            userImg: {
-                type: DataTypes.TEXT
-            },
             name: {
-                type: DataTypes.STRING(50)
+                type: DataTypes.STRING(20),
+                allowNull: false
             },
             subName: {
-                type: DataTypes.STRING(200)
+                type: DataTypes.STRING(20),
+                allowNull: false
             },
             category: {
-                type: DataTypes.STRING(200)
+                type: DataTypes.STRING(20),
+                allowNull: false
             },
             term: {
-                type: DataTypes.STRING(50)
-            },
-            madeBy: {
-                type: DataTypes.STRING(50)
-            },
-            active: {
-                type: DataTypes.STRING(50)
+                type: DataTypes.STRING(20),
+                allowNull: false
             },
             detail: {
-                type: DataTypes.STRING(200)
+                type: DataTypes.STRING(200),
+                allowNull: false
             }
         },
         {
             freezeTableName: true,
-            timetables: true
+            timestamps: false
         }
     );
 };

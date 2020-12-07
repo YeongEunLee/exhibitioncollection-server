@@ -7,7 +7,7 @@ const cors = require("cors");
 const { sequelize } = require("./models");
 
 sequelize
-    .sync({ force: true })
+    .sync({ alter: true })
     .then(() => {
         console.log("데이터베이스 연결 성공.");
     })
@@ -16,13 +16,10 @@ sequelize
     });
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/project");
 
 var app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());

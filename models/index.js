@@ -1,11 +1,7 @@
-"use strict";
-
-const fs = require("fs");
-const path = require("path");
 const Sequelize = require("sequelize");
-const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/database.json")[env];
+const config = require("../config/config.json")[env];
+
 const db = {};
 
 let sequelize;
@@ -20,30 +16,18 @@ if (config.use_env_variable) {
     );
 }
 
-fs.readdirSync(__dirname)
-    .filter(file => {
-        return (
-            file.indexOf(".") !== 0 &&
-            file !== basename &&
-            file.slice(-3) === ".js"
-        );
-    })
-    .forEach(file => {
-        const model = require(path.join(__dirname, file))(
-            sequelize,
-            Sequelize.DataTypes
-        );
-        db[model.name] = model;
-    });
-
-Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
-});
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.Project = require("./Project")(sequelize, Sequelize);
+db.User = require("./User")(sequelize, Sequelize);
+db.Image = require("./Image")(sequelize, Sequelize);
 
-db.Projects = require("./project")(sequelize, Sequelize);
+/** 1 : N   User : Project */
+db.User.hasMany(db.Project, { onDelete: "cascade" });
+db.Project.belongsTo(db.User);
+
+/** 1: N Project : Image */
+db.Project.hasMany(db.Image, { onDelete: "cascade" });
+db.Image.belongsTo(db.Project);
+
 module.exports = db;
