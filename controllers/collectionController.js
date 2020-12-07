@@ -43,5 +43,19 @@ module.exports = {
                 .status(sc.INTERNAL_SERVER_ERROR)
                 .json(ut.fail(sc.INTERNAL_SERVER_ERROR, "서버 오류"));
         }
+    },
+    getProject: async (req, res, next) => {
+        try {
+            const collectionInfo = await collectionService.getProject();
+
+            return res
+                .status(sc.OK)
+                .json(ut.success(sc.OK, "프로젝트 조회!", collectionInfo));
+        } catch (err) {
+            console.log(err);
+            return res
+                .status(sc.INTERNAL_SERVER_ERROR)
+                .json(ut.fail(sc.INTERNAL_SERVER_ERROR, "서버 오류"));
+        }
     }
 };

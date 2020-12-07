@@ -56,5 +56,26 @@ module.exports = {
             console.log(err);
             throw new Error("Server error");
         }
+    },
+    getProject: async () => {
+        try {
+            const collectionInfo = await Project.findAll({
+                include: [
+                    {
+                        model: User,
+                    },
+                    {
+                        model: Image
+                    }
+                ],
+                attributes: {
+                    exclude: ["UserId"]
+                }
+            });
+            return collectionInfo;
+        } catch (err) {
+            console.log(err);
+            throw new Error("Server error");
+        }
     }
 };
