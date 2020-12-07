@@ -17,7 +17,10 @@ sequelize
 
 var indexRouter = require("./routes/index");
 
+const {sequelize} = require('./models');
 var app = express();
+
+sequelize.sync({force : true});
 
 // view engine setup
 
@@ -45,5 +48,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render("error");
 });
+
+
+
 
 module.exports = app;
