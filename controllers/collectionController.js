@@ -16,11 +16,12 @@ module.exports = {
             active
         } = req.body;
 
-        if (!req.files) {
+        if (!req.files.img || !req.files.userImg) {
             return res
                 .status(sc.BAD_REQUEST)
                 .json(ut.fail(sc.BAD_REQUEST, "필요한 값이 없습니다(file)"));
         }
+
         const img = req.files.img[0].location;
         const userImg = req.files.userImg[0].location;
 
