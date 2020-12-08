@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Project', {        
         name :{
-            type : DataTypes.STRING(20),
+            type : DataTypes.STRING(200),
             allowNull : false,
         },
         subName :{
-            type : DataTypes.STRING(20),
+            type : DataTypes.STRING(200),
             allowNull : false,
         },
         category :{
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull : false,
         },
         term :{
-            type : DataTypes.STRING(20),
+            type : DataTypes.STRING(40),
             allowNull : false,
         },
         detail :{
