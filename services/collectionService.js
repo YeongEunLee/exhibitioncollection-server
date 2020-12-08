@@ -3,11 +3,13 @@ const { sequelize, Project, User, Image } = require("../models");
 module.exports = {
     createProject: async (imgInfo, userInfo, projectInfo) => {
         const t = await sequelize.transaction();
-
+        console.log(userInfo.userImg);
         try {
             const user = await User.create(
                 {
-                    ...userInfo
+                    userName: userInfo.madeBy,
+                    userImg: userInfo.userImg,
+                    active: userInfo.active
                 },
                 { transaction: t }
             );
@@ -44,7 +46,7 @@ module.exports = {
                         }
                     }
                 ],
-                attributes: { exclude: ["id"] },
+                attributes: ["userImg", ["userName", "madeBy"], "active"],
                 where: {
                     id: user.id
                 }
@@ -62,7 +64,7 @@ module.exports = {
             const collectionInfo = await Project.findAll({
                 include: [
                     {
-                        model: User,
+                        model: User
                     },
                     {
                         model: Image

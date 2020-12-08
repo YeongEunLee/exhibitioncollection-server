@@ -1,33 +1,45 @@
-const { User, Image, Project } = require('../models');
+const { User, Image, Project } = require("../models");
 const ut = require("../modules/util");
 const rm = require("../modules/responseMessage");
 const sc = require("../modules/statusCode");
 const collectionService = require("../services/collectionService");
 
-
 module.exports = {
     createProject: async (req, res, next) => {
         const {
-            img,
             name,
             subName,
             category,
             term,
             detail,
-            userImg,
-            userName,
+            madeBy,
             active
         } = req.body;
 
-        const imgParams = { img };
-        const userParams = { userImg, userName, active };
-        const projectParams = { name, subName, category, term, detail };
+        const img = req.files.img[0].location;
+        const userImg = req.files.userImg[0].location;
 
-        if (!(img || name || subName || category || term || detail)) {
+        if (
+            !(
+                img &&
+                name &&
+                subName &&
+                category &&
+                term &&
+                detail &&
+                madeBy &&
+                userImg &&
+                active
+            )
+        ) {
             return res
                 .status(sc.BAD_REQUEST)
                 .json(ut.fail(sc.BAD_REQUEST, "필요한 값이 없습니다"));
         }
+
+        const imgParams = { img };
+        const userParams = { userImg, madeBy, active };
+        const projectParams = { name, subName, category, term, detail };
 
         try {
             const collectionInfo = await collectionService.createProject(
@@ -65,14 +77,20 @@ module.exports = {
         const id = req.params.id;
         try {
             const project = await Project.destroy({
-                where : {
+                where: {
                     id
-                },
+                }
             });
-            return res.status(sc.OK).send(ut.success(sc.OK, rm.DELETE_PROJECT_SUCCESS));
-        } catch (err){
+            return res
+                .status(sc.OK)
+                .send(ut.success(sc.OK, rm.DELETE_PROJECT_SUCCESS));
+        } catch (err) {
             console.log(err);
-            return res.status(sc.INTERNAL_SERVER_ERROR).send(ut.fail(sc.INTERNAL_SERVER_ERROR, rm.DELETE_PROJECT_FAIL));
+            return res
+                .status(sc.INTERNAL_SERVER_ERROR)
+                .send(
+                    ut.fail(sc.INTERNAL_SERVER_ERROR, rm.DELETE_PROJECT_FAIL)
+                );
         }
     }
 };
