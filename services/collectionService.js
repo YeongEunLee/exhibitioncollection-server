@@ -3,7 +3,6 @@ const { sequelize, Project, User, Image } = require("../models");
 module.exports = {
     createProject: async (imgInfo, userInfo, projectInfo) => {
         const t = await sequelize.transaction();
-        console.log(userInfo.userImg);
         try {
             const user = await User.create(
                 {
