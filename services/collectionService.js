@@ -63,7 +63,13 @@ module.exports = {
             const collectionInfo = await Project.findAll({
                 include: [
                     {
-                        model: User
+                        model: User,
+                        attributes: [
+                            "id",
+                            "userImg",
+                            ["userName", "madeBy"],
+                            "active"
+                        ]
                     },
                     {
                         model: Image
