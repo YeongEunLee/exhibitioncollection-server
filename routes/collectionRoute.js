@@ -4,7 +4,7 @@ var router = express.Router();
 const collectionController = require("../controllers/collectionController");
 const upload = require("../modules/multer");
 /* Create Project. */
-router.get(
+router.post(
     "/projects",
     upload.fields([{ name: "img" }, { name: "userImg" }]),
     collectionController.createProject
