@@ -48,5 +48,15 @@ module.exports = {
     ISSUE_SUCCESS: "새로운 토큰이 생성되었습니다.",
 
     /* 서버에러 */
-    INTERNAL_SERVER_ERROR: "서버 내부 오류"
+    INTERNAL_SERVER_ERROR: "서버 내부 오류",
+
+    /* Project */
+    CREATE_PROJECT_SUCCESS: "프로젝트 생성 완료",
+    CREATE_PROJECT_FAIL: "프로젝트 생성 실패",
+    READ_PROJECT_SUCCESS: "프로젝트 조회 성공",
+    READ_PROJECT_ALL_FAIL: "전체 프로젝트 조회 실패",
+    UPDATE_PROJECT_SUCCESS: "프로젝트 업데이트 성공",
+    UPDATE_PROJECT_FAIL: "프로젝트 업데이트 실패",
+    DELETE_PROJECT_SUCCESS: "프로젝트 삭제 성공",
+    DELETE_PROJECT_FAIL: "프로젝트 삭제 실패"
 };

@@ -8,4 +8,7 @@ router.get("/projects", collectionController.createProject);
 /* Read all Project. */
 router.get("/projects/read", collectionController.getProject);
 
+/* Delete Project */
+router.delete('/projects/:id', collectionController.deleteProject);
+
 module.exports = router;
