@@ -12,18 +12,20 @@ module.exports = {
             category,
             term,
             detail,
+            userImg,
             madeBy,
             active
         } = req.body;
 
-        if (!req.files.img || !req.files.userImg) {
+        if (!req.file) {
             return res
                 .status(sc.BAD_REQUEST)
-                .json(ut.fail(sc.BAD_REQUEST, "필요한 값이 없습니다(file)"));
+                .json(
+                    ut.fail(sc.BAD_REQUEST, "필요한 값이 없습니다(img file)")
+                );
         }
 
-        const img = req.files.img[0].location;
-        const userImg = req.files.userImg[0].location;
+        const img = req.file.location;
 
         if (
             !(
