@@ -6,7 +6,7 @@ const upload = require("../modules/multer");
 /* Create Project. */
 router.post(
     "/projects",
-    upload.fields([{ name: "img" }, { name: "userImg" }]),
+    upload.single("img"),
     collectionController.createProject
 );
 
